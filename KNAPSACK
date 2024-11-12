@@ -1,0 +1,30 @@
+class Item:
+    def __init__(self,profit,weight):
+        self.profit=profit
+        self.weight=weight
+        
+def knapsack(W,items):
+    items.sort(key=lambda item:item.profit/item.weight , reverse=True)
+    
+    total_value=0.0;
+    for item in items:
+        if item.weight<W:
+            W-=item.weight
+            total_value+=item.profit
+        else:
+            fraction=W/item.weight
+            total_value+=item.profit*fraction
+            break
+    return total_value
+    
+W=float(input("enter weight of knapsack- "))
+n=int(input("enter number of items- "))
+items=[]
+for i in range(n):
+    profit=float(input("enter profit of item- "))
+    weight=float(input("enter weight of item- "))
+    items.append(Item(profit,weight))
+max_value=knapsack(W,items)
+print("Max value in knapsack:", round(max_value, 2))
+
+    
